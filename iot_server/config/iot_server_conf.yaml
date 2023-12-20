@@ -1,0 +1,6 @@
+app-env:
+  name: "test"
+kafka:
+  broker_address: 10.0.16.17:9092
+redis:
+  address: 10.0.16.17:6379
