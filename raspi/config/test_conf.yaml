@@ -1,0 +1,35 @@
+app-env:
+  name: "test"
+remind-me-db:
+  host: "82.157.164.106"
+  port: "3306"
+  user: "dev"
+  password: "testtest"
+  dbname: "remind_me"
+redis:
+  addr: "82.157.164.106:6379"
+kafka:
+  # Kafka 主机地址
+  host: "82.157.164.106:9092"
+
+#通用的jwt设置
+jwt-common-config:
+  signing_key: "jwt_common_config_test"
+  expires_time: 720
+  issuer: jwt_test
+
+#科大讯飞语音识别接口
+kdxf:
+  host_url_iat: "wss://iat-api.xfyun.cn/v2/iat"
+  host_url_nl: "http://ltpapi.xfyun.cn/v1"
+  app_id: "c063b6ab"
+  api_secret: "ZjUzODIyZDE4NTM4MDM5NDUzOGJhZTQ0"
+  api_key: "6aa106620e378521299af946ba5f23e9"
+  api_key_nl: "6144708943a1f283444db22adf54c471"
+
+#小程序相关配置
+we-chat:
+  #app_id: "wx0a9afc87a36ed1ca"
+  #app_secret: "340c8aa00d762b280bf2c6247d026926"
+  app_id: "wxdcd6ad7f7ce713cd"
+  app_secret: "72910377f1f263b5860cde1e0b134c22"
