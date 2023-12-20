@@ -1,0 +1,8 @@
+app-env:
+  name: "test"
+site-info:
+  name: "weather_station_1"
+emq:
+  broker_address: "122.51.55.201:1883"
+  username: "my_iot"
+  password: "my_iot_test"

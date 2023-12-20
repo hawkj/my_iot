@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  emq:
+    image: emqx/emqx-enterprise:5.4.0
+    container_name: emq
+    ports:
+      - "1883:1883"        # MQTT
+      - "8083:8083"        # MQTT over WebSocket
+      - "8883:8883"        # MQTT with TLS/SSL
+      - "18083:18083"      # Dashboard
+    environment:
+      - EMQX_NAME=emq
+      - EMQX_NODE__COOKIE=test
+      - EMQX_AUTH__USERNAME=${EMQX_AUTH__USERNAME}
+      - EMQX_AUTH__PASSWORD=${EMQX_AUTH__PASSWORD}
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+      - emqx_etc:/opt/emqx/etc
+    networks:
+      - net_1
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.6
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    environment:
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://${INTERNAL_IP}:9092,EXTERNAL://localhost:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+    networks:
+      - net_1
+
+  redis:
+    image: redis:7.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+networks:
+  net_1:
+    driver: bridge
+
+volumes:
+  emqx_data:
+  emqx_log:
+  emqx_etc:
