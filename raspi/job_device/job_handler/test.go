@@ -9,4 +9,5 @@ import (
 func Test(ctx context.Context, g *common.Global) {
 	fmt.Println(ctx.Value("params"))
 	fmt.Println("test")
+	fmt.Println(g.Config.SiteInfo.Name)
 }

@@ -1,7 +1,6 @@
-package bme_280
+package device
 
 import (
-	"fmt"
 	"github.com/d2r2/go-bsbmp"
 	"github.com/d2r2/go-i2c"
 	"log"
@@ -41,11 +40,11 @@ func Test_Bme280(t *testing.T) {
 
 	// 打印读取到的数据
 	if supported {
-		fmt.Printf("Temperature: %.2f°C\n", temperature)
-		fmt.Printf("Pressure: %.2f Pa\n", pressure)
-		fmt.Printf("Humidity: %.2f%%\n", humidity)
+		log.Printf("Temperature: %.2f°C\n", temperature)
+		log.Printf("Pressure: %.2f Pa\n", pressure)
+		log.Printf("Humidity: %.2f%%\n", humidity)
 	} else {
-		fmt.Println("Humidity reading not supported by the sensor.")
+		log.Println("Humidity reading not supported by the sensor.")
 	}
 
 	// 注意：BME280读取数据可能需要一些时间，请根据传感器的规格表设置适当的延时

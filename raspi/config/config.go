@@ -10,19 +10,24 @@ type AppEnv struct {
 	Name string `yaml:"name"`
 }
 
+type SiteInfo struct {
+	Name string `yaml:"name"`
+}
+
 type Config struct {
-	AppEnv AppEnv `yaml:"app-env"`
+	AppEnv   AppEnv   `yaml:"app-env"`
+	SiteInfo SiteInfo `yaml:"site-info"`
 }
 
 func GetConfig(configFile string) *Config {
 	content, err := os.ReadFile(configFile)
 	if err != nil {
-		log.Fatalf("failed to read config file: %v", err)
+		log.Fatalf("[os.ReadFile] failed to read config file: %v", err)
 	}
 
 	var config Config
 	if err := yaml.Unmarshal(content, &config); err != nil {
-		log.Fatalf("failed to unmarshal config: %v", err)
+		log.Fatalf("[yaml.Unmarshal] failed to unmarshal config: %v", err)
 	}
 	return &config
 }

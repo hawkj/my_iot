@@ -1,0 +1,4 @@
+app-env:
+  name: "test"
+site-info:
+  name: "weather_station_1"

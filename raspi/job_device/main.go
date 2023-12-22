@@ -33,12 +33,15 @@ func main() {
 
 	ctx := context.Background()
 
-	g := &common.Global{}
+	g := &common.Global{
+		Config: c,
+	}
+
 	var params string
 	var job string
+
 	flag.StringVar(&job, "job", "", "Name of the job to run")
 	flag.StringVar(&params, "params", "{}", "json of params")
-
 	flag.Parse()
 	if !common.IsValidJSON(params) {
 		panic(common.ErrParamsJson.ErrorMsg + " input is: " + params)
