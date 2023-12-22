@@ -9,7 +9,7 @@ import (
 	"github.com/d2r2/go-i2c"
 )
 
-type SensorData struct {
+type BME280 struct {
 	Temperature float32
 	Pressure    float32
 	Humidity    float32
@@ -17,7 +17,7 @@ type SensorData struct {
 
 func Bme280() {
 	// 创建一个 Channel 用于传输传感器数据
-	dataChannel := make(chan SensorData)
+	dataChannel := make(chan BME280)
 
 	// 启动传感器数据读取服务
 	go Bme280Service(dataChannel, 0x77, time.Second*5)
@@ -38,7 +38,7 @@ func Bme280() {
 
 // Bme280Service 传感器数据读取服务
 
-func Bme280Service(dataChannel chan<- SensorData, address uint8, waitTime time.Duration) {
+func Bme280Service(dataChannel chan<- BME280, address uint8, waitTime time.Duration) {
 	i2c, err := i2c.NewI2C(address, 1)
 	if err != nil {
 		log.Fatal(err)
@@ -74,7 +74,7 @@ func Bme280Service(dataChannel chan<- SensorData, address uint8, waitTime time.D
 			humidity = 0.0
 		}
 		// 将传感器数据发送到 Channel
-		dataChannel <- SensorData{
+		dataChannel <- BME280{
 			Temperature: temperature,
 			Pressure:    pressure,
 			Humidity:    humidity,
