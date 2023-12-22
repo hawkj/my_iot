@@ -20,7 +20,7 @@ var handlerMap = map[string]jobhandler.JobHandler{
 }
 
 func main() {
-	configFile := os.Getenv("APP_REMIND_ME_CONFIG")
+	configFile := os.Getenv("RASPI_SERVER_CONFIG")
 	c := config.GetConfig(configFile)
 	if c.AppEnv.Name == "production" {
 		gin.SetMode(gin.ReleaseMode)
