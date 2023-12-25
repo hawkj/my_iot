@@ -4,7 +4,7 @@
 script_dir="$(dirname "$(readlink -f "$0")")"
 
 # 本地目录路径
-local_directory="$script_dir/../../server"
+local_directory="$script_dir/../../iot_server"
 
 # 远程服务器地址
 remote_server="ubuntu@122.51.55.200"
