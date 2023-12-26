@@ -6,7 +6,17 @@ import (
 	"os"
 )
 
+type AppEnv struct {
+	Name string `yaml:"name"`
+}
+
+type Kafka struct {
+	BrokerAddress string `yaml:"broker_address"`
+}
+
 type Config struct {
+	AppEnv AppEnv `yaml:"app-env"`
+	Kafka  Kafka  `yaml:"kafka"`
 }
 
 func GetConfig(configFile string) *Config {
