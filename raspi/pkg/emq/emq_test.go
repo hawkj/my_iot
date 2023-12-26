@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"fmt"
 	"github.com/hawkj/my_iot/raspi/config"
 	"os"
 	"testing"
@@ -20,14 +21,14 @@ func Test_GetEmqClient(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	// 在测试开始时订阅主题
-	if token := mqttClient.Subscribe(testTopic, 0, nil); token.Wait() && token.Error() != nil {
-		t.Error(token.Error())
+	for i := 0; i < 10000; i++ {
+		time.Sleep(time.Second * 1)
+		err = SendMessage(mqttClient, testTopic, fmt.Sprintf("test_msg_%d", i))
+		if err != nil {
+			t.Error(err)
+		}
+		fmt.Println("send: " + fmt.Sprintf("test_msg_%d", i))
 	}
 
-	err = SendMessage(mqttClient, testTopic, "test_message")
-	if err != nil {
-		t.Error(err)
-	}
 	time.Sleep(time.Minute * 10)
 }
