@@ -1,0 +1,4 @@
+app-env:
+  name: "test"
+kafka:
+  broker_address: "122.51.55.200:9092"

@@ -3,18 +3,11 @@ package pkg
 import (
 	"context"
 	"fmt"
-	"log"
-	"time"
-
 	"github.com/segmentio/kafka-go"
+	"log"
 )
 
-const (
-	brokerAddress = "localhost:9092"
-	topic         = "my-topic"
-)
-
-func produceMessage() {
+func KafkaProducer(brokerAddress, topic string) {
 	// Create and configure the Writer directly
 	writer := kafka.Writer{
 		Addr:     kafka.TCP(brokerAddress),
@@ -38,14 +31,14 @@ func produceMessage() {
 	fmt.Println("Message sent successfully!")
 }
 
-func consumeMessages() {
+func KafkaConsumer(brokerAddress string, groupID string, topic string) {
 	// Create and configure the Reader directly
-	reader := kafka.Reader{
+	reader := kafka.NewReader(kafka.ReaderConfig{
 		Brokers:  []string{brokerAddress},
-		GroupID:  "my-consumer-group",
+		GroupID:  groupID,
 		Topic:    topic,
 		MaxBytes: 10e6, // 10MB
-	}
+	})
 
 	defer reader.Close()
 
@@ -58,15 +51,4 @@ func consumeMessages() {
 
 		fmt.Printf("Received message: %s\n", string(message.Value))
 	}
-}
-
-func main() {
-	// Start a goroutine to produce messages
-	go produceMessage()
-
-	// Start a goroutine to consume messages
-	go consumeMessages()
-
-	// Wait for some time to allow producers and consumers to execute
-	time.Sleep(10 * time.Second)
 }

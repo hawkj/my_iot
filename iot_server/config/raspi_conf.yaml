@@ -1,4 +1,0 @@
-app-env:
-  name: "test"
-emq:
-  broker_address: "122.51.55.200:1883"
