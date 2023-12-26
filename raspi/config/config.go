@@ -14,9 +14,14 @@ type SiteInfo struct {
 	Name string `yaml:"name"`
 }
 
+type Emq struct {
+	BrokerAddress string `yaml:"broker_address"`
+}
+
 type Config struct {
 	AppEnv   AppEnv   `yaml:"app-env"`
 	SiteInfo SiteInfo `yaml:"site-info"`
+	Emq      Emq      `yaml:"emq"`
 }
 
 func GetConfig(configFile string) *Config {
