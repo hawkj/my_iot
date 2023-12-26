@@ -1,11 +1,13 @@
 package pkg
 
 import (
+	"context"
 	"fmt"
 	"github.com/hawkj/my_iot/iot_server/config"
+	"github.com/segmentio/kafka-go"
+	"log"
 	"os"
 	"testing"
-	"time"
 )
 
 func Test_kafka(t *testing.T) {
@@ -15,8 +17,25 @@ func Test_kafka(t *testing.T) {
 	}
 	configFile := currentDir + "/../../config/iot_server_conf.yaml"
 	c := config.GetConfig(configFile)
-	fmt.Println(c.Kafka)
-	//testTopic := "test"
+	testTopic := "test"
 
-	time.Sleep(time.Minute * 10)
+	msg := kafka.Message{
+		Key:   []byte("test"),
+		Value: []byte("test_msg"),
+	}
+	err = KafkaProducer(c.Kafka.BrokerAddress, testTopic, msg)
+	if err != nil {
+		t.Error(err)
+	}
+
+	reader := GetKafkaReader(c.Kafka.BrokerAddress, testTopic, "default_group")
+	defer reader.Close()
+	for {
+		message, err := reader.ReadMessage(context.Background())
+		if err != nil {
+			log.Fatal("failed to read message:", err)
+		}
+
+		fmt.Printf("Received message: %s\n", string(message.Value))
+	}
 }
