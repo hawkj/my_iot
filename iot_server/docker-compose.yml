@@ -25,6 +25,8 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
+    depends_on:
+      - zookeeper
     environment:
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
@@ -32,9 +34,6 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_CREATE_TOPICS: "test:1:1"
-    volumes:
-      - kafka_data:/bitnami/kafka
-      - zookeeper_data:/bitnami/zookeeper/data  # 新增的部分
     networks:
       - net_1
 
@@ -56,5 +55,3 @@ volumes:
   emqx_data:
   emqx_log:
   emqx_etc:
-  kafka_data:
-  zookeeper_data:
