@@ -1,7 +1,9 @@
 package device
 
 import (
+	"context"
 	"fmt"
+	"github.com/hawkj/my_iot/raspi/pkg/common"
 	"log"
 	"time"
 
@@ -9,15 +11,9 @@ import (
 	"github.com/d2r2/go-i2c"
 )
 
-type BME280 struct {
-	Temperature float32
-	Pressure    float32
-	Humidity    float32
-}
-
 func Bme280() {
 	// 创建一个 Channel 用于传输传感器数据
-	dataChannel := make(chan BME280)
+	dataChannel := make(chan common.BME280)
 
 	// 启动传感器数据读取服务
 	go Bme280Service(dataChannel, 0x77, time.Second*5)
@@ -38,7 +34,7 @@ func Bme280() {
 
 // Bme280Service 传感器数据读取服务
 
-func Bme280Service(dataChannel chan<- BME280, address uint8, waitTime time.Duration) {
+func Bme280Service(dataChannel chan<- common.BME280, address uint8, waitTime time.Duration) {
 	i2c, err := i2c.NewI2C(address, 1)
 	if err != nil {
 		log.Fatal(err)
@@ -74,7 +70,7 @@ func Bme280Service(dataChannel chan<- BME280, address uint8, waitTime time.Durat
 			humidity = 0.0
 		}
 		// 将传感器数据发送到 Channel
-		dataChannel <- BME280{
+		dataChannel <- common.BME280{
 			Temperature: temperature,
 			Pressure:    pressure,
 			Humidity:    humidity,
@@ -82,4 +78,43 @@ func Bme280Service(dataChannel chan<- BME280, address uint8, waitTime time.Durat
 		// 等待一段时间再次读取
 		time.Sleep(waitTime)
 	}
+}
+
+func GetBME280(ctx context.Context, address uint8) (*i2c.I2C, *bsbmp.BMP, error) {
+	i2c, err := i2c.NewI2C(address, 1)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	bmp, err := bsbmp.NewBMP(bsbmp.BME280, i2c)
+	if err != nil {
+		return nil, nil, err
+	}
+	return i2c, bmp, nil
+}
+
+func GetBME280Data(ctx context.Context, bmp *bsbmp.BMP) (common.BME280, error) {
+	result := common.BME280{}
+	temperature, err := bmp.ReadTemperatureC(bsbmp.ACCURACY_STANDARD)
+	if err != nil {
+		return result, err
+	}
+
+	pressure, err := bmp.ReadPressurePa(bsbmp.ACCURACY_STANDARD)
+	if err != nil {
+		return result, err
+	}
+
+	supported, humidity, err := bmp.ReadHumidityRH(bsbmp.ACCURACY_STANDARD)
+	if err != nil {
+		return result, err
+	}
+
+	if supported == false {
+		humidity = 0.0
+	}
+	result.Temperature = temperature
+	result.Pressure = pressure
+	result.Humidity = humidity
+	return result, nil
 }

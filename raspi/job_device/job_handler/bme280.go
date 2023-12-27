@@ -2,12 +2,26 @@ package jobhandler
 
 import (
 	"context"
-	"fmt"
+	"github.com/hawkj/my_iot/raspi/device"
 	"github.com/hawkj/my_iot/raspi/pkg/common"
+	"log"
 )
 
 func Bme280(ctx context.Context, g *common.Global) {
-	fmt.Println(ctx.Value("params"))
-	fmt.Println("Bme280")
-	fmt.Println(g.Config.SiteInfo.Name)
+	address := uint8(0x77)
+	i2c, bmp, err := device.GetBME280(ctx, address)
+	defer i2c.Close()
+	if err != nil {
+		panic(err)
+	}
+
+	for {
+		data, err := device.GetBME280Data(ctx, bmp)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+
+	}
+
 }
