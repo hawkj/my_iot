@@ -43,12 +43,7 @@ func main() {
 
 	flag.StringVar(&job, "job", "", "Name of the job to run")
 	flag.StringVar(&params, "params", "{}", "json of params")
-
 	flag.Parse()
-
-	if params == "" {
-		params = "{}"
-	}
 
 	if !common.IsValidJSON(params) {
 		panic(common.ErrParamsJson.ErrorMsg + " input is: " + params)
