@@ -13,7 +13,7 @@ common_directory="$script_dir/../../common"
 remote_server="ubuntu@122.51.55.200"
 
 # 远程目录路径
-remote_directory="/home/ubuntu"
+remote_directory="/home/ubuntu/workspace"
 
 
 # 要排除的文件夹
