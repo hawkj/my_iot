@@ -16,7 +16,8 @@ import (
 )
 
 var handlerMap = map[string]jobhandler.JobHandler{
-	"test": jobhandler.Test,
+	"test":   jobhandler.Test,
+	"bme280": jobhandler.Bme280,
 }
 
 func main() {
@@ -42,7 +43,13 @@ func main() {
 
 	flag.StringVar(&job, "job", "", "Name of the job to run")
 	flag.StringVar(&params, "params", "{}", "json of params")
+
 	flag.Parse()
+
+	if params == "" {
+		params = "{}"
+	}
+
 	if !common.IsValidJSON(params) {
 		panic(common.ErrParamsJson.ErrorMsg + " input is: " + params)
 	}
@@ -54,8 +61,7 @@ func main() {
 
 	location, err := time.LoadLocation("Asia/Shanghai")
 	if err != nil {
-		log.Println("无法加载时区:" + err.Error())
-		return
+		panic("无法加载时区:" + err.Error())
 	}
 	log.Println(fmt.Sprintf("Job: %s start at %s", job, time.Now().In(location).Format("2006-01-02 15:04:05")))
 	handler(ctx, g)
