@@ -3,6 +3,7 @@ package pkg
 import (
 	"context"
 	"fmt"
+	commonpkg "github.com/hawkj/my_iot/common/pkg"
 	"github.com/hawkj/my_iot/iot_server/config"
 	"github.com/segmentio/kafka-go"
 	"log"
@@ -17,7 +18,7 @@ func Test_kafka(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	configFile := currentDir + "/../../config/iot_server_conf.yaml"
+	configFile := currentDir + "/../config/iot_server_conf.yaml"
 	c := config.GetConfig(configFile)
 	testTopic := "test-topic"
 
@@ -25,12 +26,12 @@ func Test_kafka(t *testing.T) {
 		Key:   []byte("test"),
 		Value: []byte("test_msg"),
 	}
-	err = KafkaProducer(c.Kafka.BrokerAddress, testTopic, msg)
+	err = commonpkg.KafkaProducer(c.Kafka.BrokerAddress, testTopic, msg)
 	if err != nil {
 		t.Error(err)
 	}
 
-	reader := GetKafkaReader(c.Kafka.BrokerAddress, testTopic, "default_group")
+	reader := commonpkg.GetKafkaReader(c.Kafka.BrokerAddress, testTopic, "default_group")
 	defer reader.Close()
 	for {
 		message, err := reader.ReadMessage(context.Background())

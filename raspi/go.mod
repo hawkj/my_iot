@@ -1,12 +1,15 @@
 module github.com/hawkj/my_iot/raspi
 
-go 1.21
+go 1.21.0
+
+replace github.com/hawkj/my_iot/common v0.0.0 => ../common
 
 require (
 	github.com/d2r2/go-bsbmp v0.0.0-20190515110334-3b4b3aea8375
 	github.com/d2r2/go-i2c v0.0.0-20191123181816-73a8a799d6bc
 	github.com/eclipse/paho.mqtt.golang v1.4.3
 	github.com/gin-gonic/gin v1.9.1
+	github.com/hawkj/my_iot/common v0.0.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
