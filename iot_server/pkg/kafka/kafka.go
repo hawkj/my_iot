@@ -3,6 +3,7 @@ package pkg
 import (
 	"context"
 	"github.com/segmentio/kafka-go"
+	"time"
 )
 
 func KafkaProducer(brokerAddress, topic string, message kafka.Message) error {
@@ -35,5 +36,8 @@ func GetKafkaReader(brokerAddress string, topic string, groupID string) *kafka.R
 		GroupID:  groupID,
 		Topic:    topic,
 		MaxBytes: 10e6, // 10MB
+		Dialer: &kafka.Dialer{
+			Timeout: 5 * time.Second, // 设置超时报错时间为5秒，根据你的需求调整
+		},
 	})
 }

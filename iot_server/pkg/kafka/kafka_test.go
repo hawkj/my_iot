@@ -10,6 +10,8 @@ import (
 	"testing"
 )
 
+// cd /path/to/your/package
+// go test -run Test_kafka
 func Test_kafka(t *testing.T) {
 	currentDir, err := os.Getwd()
 	if err != nil {
@@ -17,7 +19,7 @@ func Test_kafka(t *testing.T) {
 	}
 	configFile := currentDir + "/../../config/iot_server_conf.yaml"
 	c := config.GetConfig(configFile)
-	testTopic := "test"
+	testTopic := "test-topic"
 
 	msg := kafka.Message{
 		Key:   []byte("test"),
