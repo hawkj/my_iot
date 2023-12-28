@@ -16,12 +16,6 @@ func KafkaProducer(brokerAddress, topic string, message kafka.Message) error {
 
 	defer writer.Close()
 
-	// Send a message
-	//message := kafka.Message{
-	//	Key:   []byte("Key-1"),
-	//	Value: []byte("Hello, Kafka!"),
-	//}
-
 	err := writer.WriteMessages(context.Background(), message)
 	if err != nil {
 		return err
