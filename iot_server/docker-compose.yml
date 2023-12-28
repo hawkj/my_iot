@@ -1,23 +1,25 @@
 version: "3"
 
 services:
-#  emq:
-#    image: emqx/emqx-enterprise:5.4.0
-#    container_name: emq
-#    ports:
-#      - "1883:1883"        # MQTT
-#      - "8083:8083"        # MQTT over WebSocket
-#      - "8883:8883"        # MQTT with TLS/SSL
-#      - "18083:18083"      # Dashboard
-#    environment:
-#      - EMQX_NAME=emq
-#      - EMQX_NODE__COOKIE=test
-#    volumes:
-#      - emqx_data:/opt/emqx/data
-#      - emqx_log:/opt/emqx/log
-#      - emqx_etc:/opt/emqx/etc
-#    networks:
-#      - net_1
+  emq:
+    image: emqx/emqx-enterprise:5.4.0
+    container_name: emq
+    ports:
+      - "1883:1883"        # MQTT
+      - "8083:8083"        # MQTT over WebSocket
+      - "8883:8883"        # MQTT with TLS/SSL
+      - "18083:18083"      # Dashboard
+    environment:
+      - EMQX_NAME=emq
+      - EMQX_NODE__COOKIE=test
+      - EMQX_AUTH__USERNAME=my_iot
+      - EMQX_AUTH__PASSWORD=my_iot_test
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+      - emqx_etc:/opt/emqx/etc
+    networks:
+      - net_1
 
   kafka:
     image: docker.io/bitnami/kafka:3.6

@@ -4,8 +4,11 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-func GetEmqClient(clientID string, brokerAddresses string) (mqtt.Client, error) {
-	opts := mqtt.NewClientOptions().AddBroker(brokerAddresses).SetClientID(clientID)
+func GetEmqClient(clientID string, brokerAddresses, username, password string) (mqtt.Client, error) {
+	opts := mqtt.NewClientOptions().AddBroker(brokerAddresses).
+		SetClientID(clientID).
+		SetUsername(username). // 设置用户名
+		SetPassword(password)
 	client := mqtt.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		return nil, token.Error()

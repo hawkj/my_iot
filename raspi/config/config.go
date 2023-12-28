@@ -16,6 +16,8 @@ type SiteInfo struct {
 
 type Emq struct {
 	BrokerAddress string `yaml:"broker_address"`
+	Username      string `yaml:"username"`
+	Password      string `yaml:"password"`
 }
 
 type Config struct {

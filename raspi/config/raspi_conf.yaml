@@ -4,3 +4,5 @@ site-info:
   name: "weather_station_1"
 emq:
   broker_address: "122.51.55.200:1883"
+  username: "my_iot"
+  password: "my_iot_test"

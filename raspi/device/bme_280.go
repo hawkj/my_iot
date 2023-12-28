@@ -5,6 +5,8 @@ import (
 	"github.com/d2r2/go-bsbmp"
 	"github.com/d2r2/go-i2c"
 	commonstruct "github.com/hawkj/my_iot/common/struct"
+	"math/rand"
+	"time"
 )
 
 func GetBME280(ctx context.Context, address uint8) (*i2c.I2C, *bsbmp.BMP, error) {
@@ -43,5 +45,14 @@ func GetBME280Data(ctx context.Context, bmp *bsbmp.BMP) (commonstruct.BME280, er
 	result.Temperature = temperature
 	result.Pressure = pressure
 	result.Humidity = humidity
+	return result, nil
+}
+
+func GetBME280Data4Test(ctx context.Context) (commonstruct.BME280, error) {
+	result := commonstruct.BME280{}
+	randomGenerator := rand.New(rand.NewSource(time.Now().UnixNano()))
+	result.Temperature = float32(randomGenerator.Intn(50))
+	result.Pressure = 10.0
+	result.Humidity = 10.0
 	return result, nil
 }
