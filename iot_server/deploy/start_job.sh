@@ -7,6 +7,8 @@ outputDir=$rootDir/output
 
 # 配置文件路径
 configFile=$rootDir/config/iot_server_conf.yaml
+
+echo "config_file at: $configFile"
 # 检查并创建日志目录
 logDir="/tmp/job_log"
 if [ ! -d "$logDir" ]; then
@@ -38,3 +40,4 @@ nohup "${common_job_cmd}" > "$logFile" 2>&1 &
 echo "$job job started"
 echo "the PID is: $!"
 echo "log file at: $logFile"
+tail -f "$logFile"

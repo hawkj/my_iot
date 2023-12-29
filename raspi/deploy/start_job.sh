@@ -34,7 +34,7 @@ export RASPI_SERVER_CONFIG=$configFile
 # 执行 common_job
 # 执行 common_job 并将输出追加到指定文件
 logFile="/tmp/job_log/${job}.log"
-nohup "${common_job_cmd}" > "$logFile" 2>&1 &
+nohup ${common_job_cmd} > "$logFile" 2>&1 &
 echo "$job job started"
 echo "the PID is: $!"
 echo "log file at: $logFile"

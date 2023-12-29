@@ -39,7 +39,6 @@ func Test_kafka(t *testing.T) {
 		if err != nil {
 			log.Fatal("failed to read message:", err)
 		}
-
 		fmt.Printf("Received message: %s\n", string(message.Value))
 	}
 }
