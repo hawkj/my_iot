@@ -6,6 +6,8 @@ const (
 
 const JobDefaultParam = "{}"
 
+const DefaultConsumerGroup = "default_group"
+
 const (
 	KafkaTopicUploadDevice = "device-upload"
 )

@@ -6,3 +6,9 @@ type BME280 struct {
 	Humidity    float32
 	Timestamp   int64
 }
+
+type DeviceUploadMessage struct {
+	Topic    string `json:"topic"`
+	Payload  string `json:"payload"`
+	ClientID string `json:"clientid"`
+}

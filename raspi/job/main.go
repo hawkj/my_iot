@@ -5,10 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/hawkj/my_iot/raspi/pkg/common"
-
+	"github.com/hawkj/my_iot/common/error"
+	"github.com/hawkj/my_iot/common/function"
 	"github.com/hawkj/my_iot/raspi/config"
-	jobhandler "github.com/hawkj/my_iot/raspi/job_device/job_handler"
+	"github.com/hawkj/my_iot/raspi/job/job_handler"
+	"github.com/hawkj/my_iot/raspi/pkg/common"
 
 	"log"
 	"os"
@@ -46,8 +47,8 @@ func main() {
 	flag.StringVar(&params, "params", "{}", "json of params")
 	flag.Parse()
 
-	if !common.IsValidJSON(params) {
-		panic(common.ErrParamsJson.ErrorMsg + " input is: " + params)
+	if !commonfunc.IsValidJSON(params) {
+		panic(commonerr.ErrParamsJson.ErrorMsg + " input is: " + params)
 	}
 	ctx = context.WithValue(ctx, "params", params)
 	handler, ok := handlerMap[job]

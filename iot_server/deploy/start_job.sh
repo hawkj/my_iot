@@ -6,7 +6,7 @@ rootDir=$(cd "$script_path" && cd .. && pwd)
 outputDir=$rootDir/output
 
 # 配置文件路径
-configFile=$rootDir/config/raspi_conf.yaml
+configFile=$rootDir/config/iot_server_conf.yaml
 # 检查并创建日志目录
 logDir="/tmp/job_log"
 if [ ! -d "$logDir" ]; then
@@ -29,7 +29,7 @@ if [ -n "${existing_pid}" ]; then
 fi
 
 # 导入配置文件
-export RASPI_SERVER_CONFIG=$configFile
+export IOT_SERVER_CONFIG=$configFile
 
 # 执行 common_job
 # 执行 common_job 并将输出追加到指定文件
