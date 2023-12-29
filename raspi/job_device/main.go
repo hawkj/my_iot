@@ -16,8 +16,9 @@ import (
 )
 
 var handlerMap = map[string]jobhandler.JobHandler{
-	"test":   jobhandler.Test,
-	"bme280": jobhandler.Bme280,
+	"test":        jobhandler.Test,
+	"bme280":      jobhandler.Bme280,
+	"bme280_mock": jobhandler.Bme280Mock,
 }
 
 func main() {

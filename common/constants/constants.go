@@ -5,3 +5,7 @@ const (
 )
 
 const JobDefaultParam = "{}"
+
+const (
+	KafkaTopicUploadDevice = "device-upload"
+)

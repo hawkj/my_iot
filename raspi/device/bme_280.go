@@ -45,6 +45,7 @@ func GetBME280Data(ctx context.Context, bmp *bsbmp.BMP) (commonstruct.BME280, er
 	result.Temperature = temperature
 	result.Pressure = pressure
 	result.Humidity = humidity
+	result.Timestamp = time.Now().Unix()
 	return result, nil
 }
 
@@ -54,5 +55,6 @@ func GetBME280Data4Test(ctx context.Context) (commonstruct.BME280, error) {
 	result.Temperature = float32(randomGenerator.Intn(50))
 	result.Pressure = 10.0
 	result.Humidity = 10.0
+	result.Timestamp = time.Now().Unix()
 	return result, nil
 }

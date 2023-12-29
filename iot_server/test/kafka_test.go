@@ -3,6 +3,7 @@ package pkg
 import (
 	"context"
 	"fmt"
+	commoncons "github.com/hawkj/my_iot/common/constants"
 	commonpkg "github.com/hawkj/my_iot/common/pkg"
 	"github.com/hawkj/my_iot/iot_server/config"
 	"github.com/segmentio/kafka-go"
@@ -20,7 +21,7 @@ func Test_kafka(t *testing.T) {
 	}
 	configFile := currentDir + "/../config/iot_server_conf.yaml"
 	c := config.GetConfig(configFile)
-	testTopic := "test-topic"
+	testTopic := commoncons.KafkaTopicUploadDevice
 
 	msg := kafka.Message{
 		Key:   []byte("test"),
