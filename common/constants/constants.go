@@ -1,5 +1,7 @@
 package commoncons
 
 const (
-	DeviceBME280 = "BME280"
+	DeviceBME280 = "bme280"
 )
+
+const JobDefaultParam = "{}"
