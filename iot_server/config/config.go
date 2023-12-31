@@ -14,6 +14,10 @@ type Kafka struct {
 	BrokerAddress string `yaml:"broker_address"`
 }
 
+type Redis struct {
+	Address string `yaml:"address"`
+}
+
 type Config struct {
 	AppEnv AppEnv `yaml:"app-env"`
 	Kafka  Kafka  `yaml:"kafka"`
