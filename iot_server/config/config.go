@@ -21,6 +21,7 @@ type Redis struct {
 type Config struct {
 	AppEnv AppEnv `yaml:"app-env"`
 	Kafka  Kafka  `yaml:"kafka"`
+	Redis  Redis  `yaml:"redis"`
 }
 
 func GetConfig(configFile string) *Config {

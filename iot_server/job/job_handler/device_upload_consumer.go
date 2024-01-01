@@ -2,14 +2,10 @@ package jobhandler
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	commoncons "github.com/hawkj/my_iot/common/constants"
 	"github.com/hawkj/my_iot/common/pkg/queue"
-	commonstruct "github.com/hawkj/my_iot/common/struct"
 	"github.com/hawkj/my_iot/iot_server/pkg/common"
 	"log"
-	"strings"
 )
 
 func DeviceUploadConsumer(ctx context.Context, g *common.Global) {
@@ -22,36 +18,11 @@ func DeviceUploadConsumer(ctx context.Context, g *common.Global) {
 			log.Fatal("failed to read message:", err)
 		}
 		log.Printf("Received message: %s\n", string(message.Value))
+		//deviceCode, siteID, err := service.DealDeviceUploadMsg(string(message.Value))
+		//if err != nil {
+		//	log.Fatal("failed to read message:", err)
+		//}
 
-	}
-}
-
-func dealDeviceUploadMsg(message string) error {
-	uploadMsg := commonstruct.DeviceUploadMessage{}
-	err := json.Unmarshal([]byte(message), &uploadMsg)
-	if err != nil {
-		return err
-	}
-	// 获取设备ID
-	deviceCode, err := getDeviceCode(uploadMsg.Topic)
-	if err != nil {
-		return err
-	}
-	// 解析payLoad
-
-	siteID := uploadMsg.ClientID
-	fmt.Println(fmt.Sprintf("%+v", uploadMsg))
-	fmt.Println(deviceCode, siteID)
-	return nil
-}
-
-func getDeviceCode(EmqTopic string) (string, error) {
-	parts := strings.Split(EmqTopic, "/")
-
-	if len(parts) >= 2 {
-		return parts[len(parts)-1], nil
-	} else {
-		return "", fmt.Errorf("invalid input string from [getDeviceCode]")
 	}
 }
 

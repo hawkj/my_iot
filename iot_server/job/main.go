@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hawkj/my_iot/common/error"
 	"github.com/hawkj/my_iot/common/function"
+	commoncache "github.com/hawkj/my_iot/common/pkg/cache"
 	"github.com/hawkj/my_iot/iot_server/config"
 	"github.com/hawkj/my_iot/iot_server/job/job_handler"
 	"github.com/hawkj/my_iot/iot_server/pkg/common"
@@ -37,6 +38,7 @@ func main() {
 
 	g := &common.Global{
 		Config: c,
+		Redis:  commoncache.NewRedis(c.Redis.Address),
 	}
 
 	var params string
