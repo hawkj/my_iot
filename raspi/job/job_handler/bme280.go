@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/hawkj/my_iot/common/constants"
 	"github.com/hawkj/my_iot/common/function"
-	"github.com/hawkj/my_iot/common/pkg"
+	"github.com/hawkj/my_iot/common/pkg/queue"
 	"github.com/hawkj/my_iot/raspi/device"
 	"github.com/hawkj/my_iot/raspi/pkg/common"
 	"log"
@@ -20,7 +20,7 @@ func Bme280(ctx context.Context, g *common.Global) {
 		panic(err)
 	}
 
-	mqttClient, err := commonpkg.GetEmqClient(g.Config.SiteInfo.Name, g.Config.Emq.BrokerAddress, g.Config.Emq.Username, g.Config.Emq.Password)
+	mqttClient, err := queue.GetEmqClient(g.Config.SiteInfo.Name, g.Config.Emq.BrokerAddress, g.Config.Emq.Username, g.Config.Emq.Password)
 	if err != nil {
 		panic(err)
 	}
@@ -35,7 +35,7 @@ func Bme280(ctx context.Context, g *common.Global) {
 			log.Println(err)
 			continue
 		}
-		err = commonpkg.SendMessage(mqttClient, commonfunc.GetEmqDeviceUploadTopic(commoncons.DeviceBME280), string(jsonData))
+		err = queue.SendMessage(mqttClient, commonfunc.GetEmqDeviceUploadTopic(commoncons.DeviceBME280), string(jsonData))
 		if err != nil {
 			log.Println(err)
 			continue
@@ -45,7 +45,7 @@ func Bme280(ctx context.Context, g *common.Global) {
 }
 
 func Bme280Mock(ctx context.Context, g *common.Global) {
-	mqttClient, err := commonpkg.GetEmqClient(g.Config.SiteInfo.Name, g.Config.Emq.BrokerAddress, g.Config.Emq.Username, g.Config.Emq.Password)
+	mqttClient, err := queue.GetEmqClient(g.Config.SiteInfo.Name, g.Config.Emq.BrokerAddress, g.Config.Emq.Username, g.Config.Emq.Password)
 	if err != nil {
 		panic(err)
 	}
@@ -60,7 +60,7 @@ func Bme280Mock(ctx context.Context, g *common.Global) {
 			log.Println(err)
 			continue
 		}
-		err = commonpkg.SendMessage(mqttClient, commonfunc.GetEmqDeviceUploadTopic(commoncons.DeviceBME280), string(jsonData))
+		err = queue.SendMessage(mqttClient, commonfunc.GetEmqDeviceUploadTopic(commoncons.DeviceBME280), string(jsonData))
 		if err != nil {
 			log.Println(err)
 			continue

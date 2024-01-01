@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	commoncons "github.com/hawkj/my_iot/common/constants"
-	"github.com/hawkj/my_iot/common/pkg"
+	"github.com/hawkj/my_iot/common/pkg/queue"
 	commonstruct "github.com/hawkj/my_iot/common/struct"
 	"github.com/hawkj/my_iot/iot_server/pkg/common"
 	"log"
@@ -13,7 +13,7 @@ import (
 )
 
 func DeviceUploadConsumer(ctx context.Context, g *common.Global) {
-	reader := commonpkg.GetKafkaReader(g.Config.Kafka.BrokerAddress, commoncons.KafkaTopicUploadDevice, commoncons.DefaultConsumerGroup)
+	reader := queue.GetKafkaReader(g.Config.Kafka.BrokerAddress, commoncons.KafkaTopicUploadDevice, commoncons.DefaultConsumerGroup)
 	defer reader.Close()
 
 	for {

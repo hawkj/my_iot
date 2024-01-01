@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	commoncons "github.com/hawkj/my_iot/common/constants"
-	commonpkg "github.com/hawkj/my_iot/common/pkg"
+	commonpkg "github.com/hawkj/my_iot/common/pkg/queue"
 	"github.com/hawkj/my_iot/iot_server/config"
 	"github.com/segmentio/kafka-go"
 	"log"

@@ -1,4 +1,4 @@
-package commonpkg
+package queue
 
 import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
