@@ -4,6 +4,7 @@ import (
 	"context"
 	commoncons "github.com/hawkj/my_iot/common/constants"
 	"github.com/hawkj/my_iot/common/pkg/queue"
+	"github.com/hawkj/my_iot/iot_server/internal/service"
 	"github.com/hawkj/my_iot/iot_server/pkg/common"
 	"log"
 )
@@ -18,10 +19,10 @@ func DeviceUploadConsumer(ctx context.Context, g *common.Global) {
 			log.Fatal("failed to read message:", err)
 		}
 		log.Printf("Received message: %s\n", string(message.Value))
-		//deviceCode, siteID, err := service.DealDeviceUploadMsg(string(message.Value))
-		//if err != nil {
-		//	log.Fatal("failed to read message:", err)
-		//}
+		err = service.DealDeviceUploadMsg(string(message.Value))
+		if err != nil {
+			log.Fatal("failed to read message:", err)
+		}
 
 	}
 }

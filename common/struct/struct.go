@@ -12,3 +12,8 @@ type DeviceUploadMessage struct {
 	Payload  string `json:"payload"`
 	ClientID string `json:"clientid"`
 }
+
+type MqttMessage struct {
+	MsgType string      `json:"msg_type"`
+	Data    interface{} `json:"data"`
+}

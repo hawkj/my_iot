@@ -6,6 +6,7 @@ import (
 	"github.com/hawkj/my_iot/common/constants"
 	"github.com/hawkj/my_iot/common/function"
 	"github.com/hawkj/my_iot/common/pkg/queue"
+	commonstruct "github.com/hawkj/my_iot/common/struct"
 	"github.com/hawkj/my_iot/raspi/device"
 	"github.com/hawkj/my_iot/raspi/pkg/common"
 	"log"
@@ -55,6 +56,9 @@ func Bme280Mock(ctx context.Context, g *common.Global) {
 			log.Println(err)
 			continue
 		}
+		mqttMesage := commonstruct.MqttMessage{}
+		mqttMesage.MsgType = commoncons.MqttMsgTypeDeviceData
+		mqttMesage.Data = data
 		jsonData, err := json.Marshal(data)
 		if err != nil {
 			log.Println(err)
