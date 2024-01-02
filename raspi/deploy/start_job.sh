@@ -40,11 +40,25 @@ fi
 
 
 # 检查是否存在当前正在运行的进程
-existing_pid=$("pgrep -f ${common_job_cmd}")
-if [ -n "${existing_pid}" ]; then
-    echo "Existing process found with PID ${existing_pid}. Killing the process..."
-    kill "${existing_pid}"
-    sleep 2  # 等待一段时间确保进程被杀死
+job_check="${outputDir}/job -job $job"
+
+existing_pids=$(pgrep -f "${job_check}")
+if [ -n "${existing_pids}" ]; then
+    echo "Existing process found with PID ${existing_pids}."
+    # 使用循环逐个杀死进程
+        for pid in $existing_pids; do
+            echo "Killing process with PID ${pid}..."
+            kill "${pid}"
+            kill_status=$?
+
+            if [ $kill_status -eq 0 ]; then
+                echo "Process with PID ${pid} successfully killed."
+            else
+                echo "Failed to kill process with PID ${pid}. Exit status: ${kill_status}"
+            fi
+
+            sleep 1  # 等待一段时间确保进程被杀死
+        done
 fi
 # 导入配置文件
 export RASPI_SERVER_CONFIG=$configFile
