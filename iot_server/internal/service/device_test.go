@@ -17,7 +17,8 @@ func Test_dealDeviceUploadMsg(t *testing.T) {
 	}
 	configFile := currentDir + "/../../config/iot_server_conf.yaml"
 	c := config.GetConfig(configFile)
-	msg := `{"topic":"device/upload/bme280","payload":"{\"msg_type\":\"device-data\",\"data\":{\"Temperature\":22,\"Pressure\":10,\"Humidity\":10,\"Timestamp\":1704177170}}","clientid":"weather_station_1"}`
+	msg := `{"topic":"device/upload/bme280","payload":"{\"msg_type\":\"device-data\",\"data\":{\"temperature\":25,\"pressure\":10,\"humidity\":10,\"timestamp\":1704191215}}","clientid":"weather_station_1"}
+`
 
 	redisClient, err := commoncache.NewRedis(context.Background(), c.Redis.Address)
 	if err != nil {
