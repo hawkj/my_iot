@@ -29,7 +29,7 @@ if [ -z "$params" ]; then
 fi
 
 # 设置 common_job 的执行命令
-common_job_cmd="${outputDir}/job -job $job -params \"$params\""
+common_job_cmd="${outputDir}/job -job $job -params ${params}"
 # shellcheck disable=SC2154
 echo the command  is: "$common_job_cmd"
 # 检查 $outputDir/job 文件是否存在
@@ -37,14 +37,15 @@ if [ ! -x "$outputDir"/job ]; then
     echo Error: "$outputDir"/job not found. Exiting...
     exit 1
 fi
+
+
 # 检查是否存在当前正在运行的进程
-existing_pid=$(pgrep -f "$common_job_cmd")
+existing_pid=$("pgrep -f ${common_job_cmd}")
 if [ -n "${existing_pid}" ]; then
-    echo "Existing process found with PID $existing_pid. Killing the process..."
-    kill "$existing_pid}】"
+    echo "Existing process found with PID ${existing_pid}. Killing the process..."
+    kill "${existing_pid}"
     sleep 2  # 等待一段时间确保进程被杀死
 fi
-
 # 导入配置文件
 export RASPI_SERVER_CONFIG=$configFile
 
@@ -53,6 +54,6 @@ export RASPI_SERVER_CONFIG=$configFile
 logFile=/tmp/job_log/$job.log
 
 nohup ${common_job_cmd} > "$logFile" 2>&1 &
-echo ${job} job started
+echo "${job}" job started
 echo the PID is: $!
 echo log file at: "${logFile}"

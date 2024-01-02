@@ -19,7 +19,7 @@ fi
 job=$1
 params=$2
 # 设置 common_job 的执行命令
-common_job_cmd="${outputDir}/job -job ${job} -params ${params}"
+common_job_cmd="${outputDir}/job -job '${job}' -params '${params}'"
 
 # 检查是否存在当前正在运行的进程
 existing_pid=$(pgrep -f "${common_job_cmd}")
