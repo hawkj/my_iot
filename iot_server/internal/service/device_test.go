@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	commoncache "github.com/hawkj/my_iot/common/pkg/cache"
+	"github.com/hawkj/my_iot/common/pkg/cache"
 	"github.com/hawkj/my_iot/iot_server/config"
 	"os"
 	"testing"
@@ -28,8 +28,8 @@ func Test_dealDeviceUploadMsg(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	//fmt.Println(commoncache.GetDeviceCacheKey("weather_station_1", "bme280"))
-	value, err := redisClient.HGet(context.Background(), "H_Device:weather_station_1:bme280", commoncache.H_F_Device_DeviceData).Result()
+
+	value, err := redisClient.HGet(context.Background(), commoncache.GetDeviceCacheKey("weather_station_1", "bme280"), commoncache.H_F_Device_DeviceData).Result()
 	if err != nil {
 		t.Error(err)
 	}

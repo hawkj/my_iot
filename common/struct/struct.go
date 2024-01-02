@@ -1,10 +1,10 @@
 package commonstruct
 
 type BME280 struct {
-	Temperature float32
-	Pressure    float32
-	Humidity    float32
-	Timestamp   int64
+	Temperature float32 `json:"temperature"`
+	Pressure    float32 `json:"pressure"`
+	Humidity    float32 `json:"humidity"`
+	Timestamp   int64   `json:"timestamp"`
 }
 
 type DeviceUploadMessage struct {
