@@ -59,7 +59,7 @@ func Bme280Mock(ctx context.Context, g *common.Global) {
 		mqttMesage := commonstruct.MqttMessage{}
 		mqttMesage.MsgType = commoncons.MqttMsgTypeDeviceData
 		mqttMesage.Data = data
-		jsonData, err := json.Marshal(data)
+		jsonData, err := json.Marshal(mqttMesage)
 		if err != nil {
 			log.Println(err)
 			continue

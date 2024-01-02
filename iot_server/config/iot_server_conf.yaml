@@ -1,8 +1,6 @@
-constants:
-  ip_address: &ip_address "10.0.16.17"
 app-env:
   name: "test"
 kafka:
-  broker_address: *ip_address:9092
+  broker_address: 10.0.16.17:9092
 redis:
-  address: *ip_address:6379
+  address: 10.0.16.17:6379
