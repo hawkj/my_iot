@@ -19,7 +19,7 @@ func DeviceUploadConsumer(ctx context.Context, g *common.Global) {
 			log.Fatal("failed to read message:", err)
 		}
 		log.Printf("Received message: %s\n", string(message.Value))
-		err = service.DealDeviceUploadMsg(string(message.Value))
+		err = service.DealDeviceUploadMsg(ctx, g.Redis, string(message.Value))
 		if err != nil {
 			log.Fatal("failed to read message:", err)
 		}

@@ -21,6 +21,7 @@ func DealDeviceUploadMsg(ctx context.Context, redisClient *redis.Client, message
 	if err != nil {
 		return errors.Join(errors.New("[DealDeviceUploadMsg getDeviceCode]"), err)
 	}
+	fmt.Printf(deviceCode)
 	fmt.Printf(uploadMsg.ClientID)
 	return nil
 }
@@ -32,4 +33,8 @@ func getDeviceCode(EmqTopic string) (string, error) {
 	} else {
 		return "", fmt.Errorf("invalid input string from [getDeviceCode]")
 	}
+}
+
+func UpdateDeviceData(ctx context.Context, redisClient *redis.Client, deviceCode string, siteID string, data string) {
+
 }
