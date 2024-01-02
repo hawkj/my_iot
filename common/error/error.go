@@ -28,7 +28,9 @@ var (
 )
 
 // Job中的报错 102 开头
-var ()
+var (
+	ErrEmqMsgType = Err{1020001, "err meqtt msg type"}
+)
 var errList = []Err{
 	ErrParams,
 }

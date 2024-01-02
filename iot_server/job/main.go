@@ -36,9 +36,14 @@ func main() {
 
 	ctx := context.Background()
 
+	redisClient, err := commoncache.NewRedis(ctx, c.Redis.Address)
+	if err != nil {
+		panic(err)
+	}
+
 	g := &common.Global{
 		Config: c,
-		Redis:  commoncache.NewRedis(c.Redis.Address),
+		Redis:  redisClient,
 	}
 
 	var params string

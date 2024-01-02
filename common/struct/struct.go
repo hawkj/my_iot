@@ -8,9 +8,9 @@ type BME280 struct {
 }
 
 type DeviceUploadMessage struct {
-	Topic       string      `json:"topic"`
-	MqttMessage MqttMessage `json:"mqtt_message"`
-	ClientID    string      `json:"clientid"`
+	Topic    string `json:"topic"`
+	Payload  string `json:"payload"`
+	ClientID string `json:"clientid"`
 }
 
 type MqttMessage struct {
