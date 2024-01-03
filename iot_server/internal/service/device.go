@@ -10,7 +10,6 @@ import (
 	"github.com/hawkj/my_iot/common/error"
 	"github.com/hawkj/my_iot/common/pkg/cache"
 	"github.com/hawkj/my_iot/common/struct"
-	"os"
 	"strings"
 	"time"
 )
@@ -67,15 +66,13 @@ func UpdateDeviceData(ctx context.Context, redisClient *redis.Client, deviceCode
 	if err != nil {
 		return errors.Join(err, errors.New("[UpdateDeviceData redisClient.Expire]"))
 	}
-	////////////////
-	fmt.Println(deviceCacheKey)
-	value, err := redisClient.HGet(context.Background(), deviceCacheKey, commoncache.H_F_Device_DeviceData).Result()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	fmt.Println("----------------------------")
-	fmt.Println(value)
-	fmt.Println("----------------------------")
 	return nil
+}
+
+func GetDeviceData(ctx context.Context, redisClient *redis.Client, deviceCode string, siteID string) (string, error) {
+	value, err := redisClient.HGet(context.Background(), commoncache.GetDeviceCacheKey(siteID, deviceCode), commoncache.H_F_Device_DeviceData).Result()
+	if err != nil {
+		return "", err
+	}
+	return value, err
 }
