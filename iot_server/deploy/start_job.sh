@@ -6,7 +6,7 @@ rootDir=$(cd "${currentDir}" && cd .. && pwd)
 outputDir="${rootDir}/output"
 
 # 配置文件路径
-configFile="${rootDir}/config/raspi_conf.yaml"
+configFile="${rootDir}/config/iot_server_conf.yaml"
 # 检查并创建日志目录
 logDir=/tmp/job_log
 if [ ! -d "$logDir" ]; then
